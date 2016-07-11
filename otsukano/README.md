@@ -12,3 +12,9 @@ $ sudo apt-get update
 $ sudo dpkg -i sbt-0.13.7.deb
 $ sbt
 ```
+
+### compile by sbt
+```
+$ sbt
+> run
+```
