@@ -1,0 +1,6 @@
+[package]
+name = "what_number"
+version = "0.1.0"
+authors = ["中島 拓哉 <nakajimatakuya@next-group.jp>"]
+
+[dependencies]

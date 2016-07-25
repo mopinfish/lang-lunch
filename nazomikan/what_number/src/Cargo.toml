@@ -1,0 +1,5 @@
+[package]
+
+name = "what_number"
+version = "0.0.1"
+authors = [ "nazomikan <nazomikan@gmail.com>" ]
