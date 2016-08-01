@@ -3,14 +3,48 @@ object HelloWorld {
 //    isInfant()
 //    count9()
 //    forloop()
-    findTriangle()
+//    findTriangle()
+//    sampleMatchSyntax()
+//    listPatternMatch()
+    randomString()
+  }
+
+  def randomString(): Unit = {
+    for(i <- 1 to 1000) {
+      val str = new scala.util.Random(new java.security.SecureRandom()).alphanumeric.take(5).toList match {
+        case List(a, b, c, d, _) => List(a, b, c, d, a).mkString
+      }
+      println(str)
+    }
+  }
+
+  def listPatternMatch(): Unit = {
+    val arr = List("A", "B", "C", "D", "E")
+    arr match {
+      case List(a, "B", c, d, e) =>
+        println("a = " + a)
+        println("c = " + c)
+        println("d = " + d)
+        println("e = " + e)
+      case _ =>
+        println("nothing")
+    }
+  }
+
+  def sampleMatchSyntax(): Unit = {
+    val taro = "Taro"
+    taro match {
+      case "Taro" => println("Male")
+      case "Jira" | "Baro" => println("BeMale")
+      case "Hanako" => println("Female")
+      // wild card: it is mean 'default' in other langages.
+      case _ => println("Other")
+    }
   }
 
   def findTriangle(): Unit = {
-    for(a <- 1 to 1000; b <- 1 until 1000; c <- 1 to 1000) {
-      if (a * a == b * b + c * c) {
-        println("a = " + a + " b = " + b + " c = " + c)
-      }
+    for(a <- 1 to 1000; b <- 1 until 1000; c <- 1 to 1000; if (a * a == b * b + c * c)) {
+      println("a = " + a + " b = " + b + " c = " + c)
     }
   }
 
