@@ -3,3 +3,7 @@
 name = "what_number"
 version = "0.0.1"
 authors = [ "nazomikan <nazomikan@gmail.com>" ]
+
+[dependencies]
+
+rand = "0.3.14"
