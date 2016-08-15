@@ -1,3 +1,14 @@
+class Point(val x: Int, val y: Int) {
+  def +(p: Point): Point = {
+    new Point(x + p.x, y + p.y)
+  }
+  override def toString(): String = "(" + x + ", " + y + ")"
+}
+
+class Calculator {
+  def add(x: Int)(y: Int): Int = x + y
+}
+
 object HelloWorld {
   def main(args: Array[String]): Unit = {
 //    isInfant()
@@ -6,7 +17,40 @@ object HelloWorld {
 //    findTriangle()
 //    sampleMatchSyntax()
 //    listPatternMatch()
-    randomString()
+//    randomString()
+    createPointClass()
+    addSample()
+    inheritSample()
+  }
+
+  def inheritSample():Unit = {
+    class Aprinter() {
+      def print(): Unit = {
+        println("A")
+      }
+    }
+    class Bprinter() extends Aprinter {
+      override def print(): Unit = {
+        println("B")
+      }
+    }
+    new Aprinter().print
+    new Bprinter().print
+  }
+
+  def addSample():Unit = {
+    val calc = new Calculator()
+    println(calc.add(2)(3))
+    val calc2 = calc.add(2) _
+    println(calc2)
+    println(calc2(3))
+  }
+
+  def createPointClass(): Unit = {
+    val p1 = new Point(36, 34)
+    val p2 = new Point(2, 2)
+    println(p1.toString())
+    println(p1 + p2 + p2)
   }
 
   def randomString(): Unit = {
