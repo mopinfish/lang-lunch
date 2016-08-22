@@ -5,22 +5,56 @@ class Point(val x: Int, val y: Int) {
   override def toString(): String = "(" + x + ", " + y + ")"
 }
 
+object Point {
+  def apply(x: Int, y: Int): Point = new Point(x, y)
+}
+
 class Calculator {
   def add(x: Int)(y: Int): Int = x + y
 }
+
+
+// Companion Object and Class
+class Person(val name: String, private val age: Int, private[this] val weight: Int)
+
+object Person {
+  def apply():Unit = {
+    val taro = new Person("Taro", 20, 70)
+    println(taro)
+    println(taro.name) // => "Taro"
+    println(taro.age)  // => 20
+//    println(taro.weight)  // => [error]value weight is not a member of Person
+  }
+}
+
+
 
 object HelloWorld {
   def main(args: Array[String]): Unit = {
 //    isInfant()
 //    count9()
-//    forloop()
+//    forloop() 
 //    findTriangle()
 //    sampleMatchSyntax()
 //    listPatternMatch()
 //    randomString()
-    createPointClass()
-    addSample()
-    inheritSample()
+//    createPointClass()
+//    addSample()
+//    inheritSample()
+//    factorySample()
+    companionObjectSample()
+  }
+
+  def companionObjectSample():Unit = {
+    Person()
+  }
+
+  def factorySample():Unit = {
+    val p1 = Point(3, 5)
+    val p2 = Point(4, 7)
+    println(p1)
+    println(p2)
+    println(p1 + p2)
   }
 
   def inheritSample():Unit = {
