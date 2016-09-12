@@ -1,5 +1,5 @@
 object TraitSample {
-  def main(args: Array[String]): Unit = {
+  def execute(): Unit = {
     val a = new Human("dwango")
     a.printName()
   }

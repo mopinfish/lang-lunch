@@ -1,3 +1,5 @@
+package sample
+
 class Point(val x: Int, val y: Int) {
   def +(p: Point): Point = {
     new Point(x + p.x, y + p.y)
@@ -30,7 +32,7 @@ object Person {
 
 
 object HelloWorld {
-  def main(args: Array[String]): Unit = {
+  def execute(): Unit = {
 //    isInfant()
 //    count9()
 //    forloop() 

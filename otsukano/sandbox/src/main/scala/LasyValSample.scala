@@ -1,5 +1,5 @@
 object LasyValSample {
-  def main(args: Array[String]): Unit = {
+  def execute(): Unit = {
     Def.printZ() // => 3
     Def.y = 4
     Def.printZ() // => 5
