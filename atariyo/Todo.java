@@ -17,7 +17,7 @@ public class Todo{
 
     public static void main(String[] args){
         System.out.println("Hello, world.");
-
+        addList();
     }
 
     // todo一覧に追加する
