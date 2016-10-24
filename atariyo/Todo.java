@@ -16,19 +16,31 @@ public class Todo{
     }
 
     public static void main(String[] args){
-        System.out.println("Hello, world.");
-        addList();
+        if (args.length < 2) {
+            System.out.println("args length is less 3");
+            return;
+        }
+
+        if (args[0].equals("add")) {
+            addList(args[1]);
+        }
+
+        // addの後に実装
+        if (args[0].equals"del") {
+            addList(args[1]);
+        }
     }
 
     // todo一覧に追加する
-    public static void addList () {
+    public static void addList (String todo) {
         // とりあえずファイルに書き込むサンプル
         // ここでtodoのjsonを書き込む
         try{
           File file = new File("todolist.txt");
           FileWriter filewriter = new FileWriter(file);
 
-          filewriter.write("atariyo");
+          // 残実装：改行して保存するようにする
+          filewriter.write(todo);
           filewriter.close();
         }catch(IOException e){
           System.out.println(e);
