@@ -28,3 +28,19 @@ unzip typesafe-activator-1.2.12-minimal.zip
 mv activator-1.2.12-minimal /usr/local/lib
 ln -s /usr/local/lib/activator-1.2.12-minimal/activator /usr/bin/activator
 ```
+
+### run play application
+```
+activator run -Dhttp.port=3000
+```
+
+### start h2
+```
+cd slick-codegen/h2/
+sh start.sh
+```
+
+### generate models
+```
+./sbt.sh gen-tables
+```
