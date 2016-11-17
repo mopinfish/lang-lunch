@@ -83,7 +83,7 @@ class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider,
       // OKの場合
       form => {
         // ユーザを登録
-        val user = UserRow(0, form.name, form.companyId)
+        val user = UsersRow(0, form.name, form.companyId)
         db.run(Users += user).map { _ =>
           // 一覧画面へリダイレクト
           Redirect(routes.UserController.list)
@@ -100,14 +100,14 @@ class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider,
     userForm.bindFromRequest.fold(
       // エラーの場合は登録画面に戻す
       error => {
-        db.run(Companies.sortBy((t => t.id).result).map { companies =>
+        db.run(Companies.sortBy(t => t.id).result).map { companies =>
           BadRequest(views.html.user.edit(error, companies))
         }
       },
       // OKの場合は登録を行い一覧画面にリダイレクトする
       form => {
         // ユーザ情報を更新
-        val user = UserRow(form.id.get, form.name, form.companyId)
+        val user = UsersRow(form.id.get, form.name, form.companyId)
         db.run(Users.filter(t => t.id === user.id.bind).update(user)).map { _ =>
           // 一覧画面へリダイレクト
           Redirect(routes.UserController.list)
