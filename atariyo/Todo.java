@@ -26,7 +26,7 @@ public class Todo{
         }
 
         // addの後に実装
-        if (args[0].equals"del") {
+        if (args[0].equals("del")) {
             addList(args[1]);
         }
     }
@@ -37,10 +37,9 @@ public class Todo{
         // ここでtodoのjsonを書き込む
         try{
           File file = new File("todolist.txt");
-          FileWriter filewriter = new FileWriter(file);
+          FileWriter filewriter = new FileWriter(file, true);
 
-          // 残実装：改行して保存するようにする
-          filewriter.write(todo);
+          filewriter.write(todo + "\n");
           filewriter.close();
         }catch(IOException e){
           System.out.println(e);
