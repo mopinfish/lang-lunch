@@ -30,6 +30,9 @@ class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider,
                                val messagesApi: MessagesApi) extends Controller
     with HasDatabaseConfigProvider[JdbcProfile] with I18nSupport {
 
+  // コンパニオンオブジェクトに定義したFormを参照するためにimport文を追加
+  import UserController._
+
   /**
    * 一覧表示
    */
@@ -40,9 +43,6 @@ class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider,
       Ok(views.html.user.list(users))
     }
   }
-
-  // コンパニオンオブジェクトに定義したFormを参照するためにimport文を追加
-  import UserController._
 
   /**
    * 編集画面表示
