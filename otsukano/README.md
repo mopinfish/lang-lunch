@@ -45,4 +45,21 @@ sh start.sh
 ./sbt.sh gen-tables
 ```
 
-### 
+### execute api commands
+#### read
+#### create
+```
+curl -H "Content-type: application/json" -XPOST -d '{"name":"TestUser", "companyId":1}' http://localhost:3000/json/create
+```
+#### update
+```
+curl -H "Content-type: application/json" -XPOST -d '{"id":1, "name":"TestUser", "companyId":1}' http://localhost:3000/json/update
+```
+#### raise error intentionally
+```
+curl -H "Content-type: application/json" -XPOST -d '{"userName":"TestUser"}' http://localhost:3000/json/create
+```
+#### delete
+```
+curl -XPOST http://localhost:3000/json/remove/1
+```
