@@ -20,6 +20,16 @@ object JsonController {
     (__ \ "name"     ).write[String] and
     (__ \ "companyId").writeNullable[Int]
   )(unlift(UsersRow.unapply))
+
+  // ユーザ情報を受け取るためのケースクラス
+  case class UserForm(id: Option[Long], name: String, companyId: Option[Int])
+
+  // JSONをUserFormに変換するためのReadsを定義
+  implicit val userFormFormat = (
+    (__ \ "id"       ).readNullable[Long] and
+    (__ \ "name"     ).read[String]       and
+    (__ \ "companyId").readNullable[Int]
+  )(UserForm)
 }
 
 class JsonController @Inject()(val dbConfigProvider: DatabaseConfigProvider) extends Controller
@@ -42,15 +52,46 @@ class JsonController @Inject()(val dbConfigProvider: DatabaseConfigProvider) ext
   /**
    * ユーザ登録
    */
-  def create = TODO
+  def create = Action.async(parse.json) { implicit rs =>
+    rs.body.validate[UserForm].map { form =>
+      // OKの場合はユーザ登録
+      val user = UsersRow(0, form.name, form.companyId)
+      db.run(Users += user).map { _ =>
+        Ok(Json.obj("result" -> "success"))
+      }
+    }.recoverTotal { e =>
+      // NGの場合はバリデーションエラーを返す
+      Future {
+        BadRequest(Json.obj("result" -> "failure", "error" -> JsError.toJson(e)))
+      }
+    }
+	}
 
   /**
    * ユーザ更新
    */
-  def update = TODO
+  def update = Action.async(parse.json) { implicit rs =>
+    rs.body.validate[UserForm].map { form =>
+      // OKの場合はユーザ情報を更新
+      val user = UsersRow(form.id.get, form.name, form.companyId)
+      db.run(Users.filter(t => t.id === user.id.bind).update(user)).map { _ =>
+        Ok(Json.obj("result" -> "success"))
+      }
+    }.recoverTotal { e =>
+      // NGの場合はバリデーションエラーを返す
+      Future {
+        BadRequest(Json.obj("result" -> "failure", "error" -> JsError.toJson(e)))
+      }
+    }
+  }
 
   /**
    * ユーザ削除
    */
-  def remove(id: Long) = TODO
+  def remove(id: Long) = Action.async { implicit rs =>
+    // ユーザを削除
+    db.run(Users.filter(t => t.id === id.bind).delete).map { _ =>
+      Ok(Json.obj("result" -> "success"))
+    }
+  }
 }
