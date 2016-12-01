@@ -29,6 +29,11 @@ mv activator-1.2.12-minimal /usr/local/lib
 ln -s /usr/local/lib/activator-1.2.12-minimal/activator /usr/bin/activator
 ```
 
+### initialize play project
+```
+activator new play-hello-world play-scala
+```
+
 ### run play application
 ```
 activator run -Dhttp.port=3000
