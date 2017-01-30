@@ -5,6 +5,16 @@
     <title>{{.Title}}</title>
   </head>
   <body>
-    {{.Title}} {{.Count}} count
+    <h1>{{.Title}}</h1>
+    <form action="/addTask" method="GET">
+      <span>New Task: </span><input type="text" name="task" value=""></input>
+      <button type="submit">送信</button>
+    </form>
+    <h2>Tasks</h2>
+    <ul>
+      {{range $task := .Tasks}}
+      <li>{{$task}}</li>
+      {{end}}
+    </ul>
   </body>
 </html>
