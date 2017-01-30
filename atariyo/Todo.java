@@ -16,7 +16,10 @@ public class Todo{
     }
 
     public static void main(String[] args){
-        if (args.length < 2) {
+        if (args[0].equals("show")) {
+            showList();
+        }
+        else if (args.length < 2) {
             System.out.println("args length is less 3");
             return;
         }
@@ -48,6 +51,6 @@ public class Todo{
 
     // todo一覧を表示する
     public static void showList () {
-    
+        System.out.println("show func");
     }
 }
