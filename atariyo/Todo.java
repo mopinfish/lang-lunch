@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.IOException;
 
@@ -51,6 +53,20 @@ public class Todo{
 
     // todo一覧を表示する
     public static void showList () {
-        System.out.println("show func");
+      try {
+        File file = new File("todolist.txt");
+        FileReader filereader = new FileReader(file);
+
+        int ch;
+        while ((ch = filereader.read()) != -1) {
+          System.out.print((char)ch);
+        }
+
+        filereader.close();
+      } catch(FileNotFoundException e) {
+        System.out.println(e);
+      } catch (IOException e) {
+        System.out.println(e);
+      }
     }
 }
