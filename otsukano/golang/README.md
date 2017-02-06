@@ -37,3 +37,24 @@ confirm version
 ```
 go version
 ```
+
+### set project root
+
+```
+export GOPATH=/home/otsukano/ws/lang-lunch/otsukano/golang/myapp
+```
+
+### build application
+
+```
+go install mymath
+cd $GOPATH/src/mathapp
+go build
+```
+
+### install application
+
+```
+cd $GOPATH/src/mathapp
+go install
+```
