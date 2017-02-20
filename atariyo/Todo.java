@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -32,7 +33,7 @@ public class Todo{
 
         // addの後に実装
         if (args[0].equals("del")) {
-            addList(args[1]);
+            delListItem(args[1]);
         }
     }
 
@@ -49,6 +50,28 @@ public class Todo{
         }catch(IOException e){
           System.out.println(e);
         }
+    }
+
+    // todo一覧から削除する
+    public static void delListItem (String itemName) {
+      try{
+        File file = new File("todolist.txt");
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        String str;
+        while((str = br.readLine()) != null){
+          if (str.equals(itemName)) {
+            System.out.println("hit!!");
+          }
+          System.out.println(str);
+        }
+
+        br.close();
+      }catch(FileNotFoundException e){
+        System.out.println(e);
+      }catch(IOException e){
+        System.out.println(e);
+      }
     }
 
     // todo一覧を表示する
