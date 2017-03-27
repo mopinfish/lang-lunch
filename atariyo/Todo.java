@@ -54,6 +54,9 @@ public class Todo{
 
     // todo一覧から削除する
     public static void delListItem (String itemName) {
+      StringBuffer fileRead = new StringBuffer("");
+      FileWriter fileWriter = null;
+
       try{
         File file = new File("todolist.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -61,12 +64,19 @@ public class Todo{
         String str;
         while((str = br.readLine()) != null){
           if (str.equals(itemName)) {
-            System.out.println("hit!!");
+            System.out.println(str + "is deleted");
           }
-          System.out.println(str);
+          else {
+            fileRead.append(str + "\r\n");
+          }
+          // System.out.println(str);
         }
+        System.out.println(fileRead.toString());
 
         br.close();
+
+        fileWriter = new FileWriter("todolist.txt");
+        fileWriter.write(fileRead.toString());
       }catch(FileNotFoundException e){
         System.out.println(e);
       }catch(IOException e){
