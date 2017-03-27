@@ -55,7 +55,6 @@ public class Todo{
     // todo一覧から削除する
     public static void delListItem (String itemName) {
       StringBuffer fileRead = new StringBuffer("");
-      FileWriter fileWriter = null;
 
       try{
         File file = new File("todolist.txt");
@@ -69,14 +68,15 @@ public class Todo{
           else {
             fileRead.append(str + "\r\n");
           }
-          // System.out.println(str);
         }
+        System.out.println("----result----");
         System.out.println(fileRead.toString());
 
         br.close();
 
-        fileWriter = new FileWriter("todolist.txt");
-        fileWriter.write(fileRead.toString());
+        FileWriter filewriter = new FileWriter(file);
+        filewriter.write(fileRead.toString());
+        filewriter.close();
       }catch(FileNotFoundException e){
         System.out.println(e);
       }catch(IOException e){
