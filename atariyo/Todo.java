@@ -11,20 +11,22 @@ public class Todo{
 
     public static void main(String[] args){
         if (args[0].equals("show")) {
-            showList();
+          showList();
         }
         else if (args.length < 2) {
-            System.out.println("args length is less 3");
-            return;
+          System.out.println("args length is less 3");
+          return;
         }
 
         if (args[0].equals("add")) {
-            addList(args[1]);
+          addItem(args[1]);
+          System.out.println("---- result ----");
+          showList();
         }
 
         // addの後に実装
         if (args[0].equals("del")) {
-          delListItem(args[1]);
+          delItem(args[1]);
 
           System.out.println("---- result ----");
           showList();
@@ -32,7 +34,7 @@ public class Todo{
     }
 
     // todo一覧に追加する
-    public static void addList (String todo) {
+    public static void addItem (String todo) {
         try{
           File file = new File("todolist.txt");
           FileWriter filewriter = new FileWriter(file, true);
@@ -45,17 +47,20 @@ public class Todo{
     }
 
     // todo一覧から削除する
-    public static void delListItem (String itemName) {
-      StringBuffer fileRead = new StringBuffer("");
+    public static void delItem (String itemName) {
 
       try{
         File file = new File("todolist.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
 
+        StringBuffer fileRead = new StringBuffer("");
         String str;
+        Boolean isHit = false;
+
         while((str = br.readLine()) != null){
           if (str.equals(itemName)) {
-            System.out.println(str + " is deleted");
+            System.out.println("delete " + str);
+            isHit = true;
           }
           else {
             fileRead.append(str + "\r\n");
@@ -63,6 +68,11 @@ public class Todo{
         }
 
         br.close();
+
+        if (!isHit) {
+          System.out.println(itemName + " not exist in list");
+          return;
+        }
 
         FileWriter filewriter = new FileWriter(file);
         filewriter.write(fileRead.toString());
