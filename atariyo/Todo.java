@@ -9,15 +9,6 @@ import java.io.IOException;
 
 public class Todo{
 
-    String str;
-    int num;
-
-    // constractor
-    Todo() {
-        this.str = "mozi";
-        this.num = 123;
-    }
-
     public static void main(String[] args){
         if (args[0].equals("show")) {
             showList();
@@ -33,14 +24,15 @@ public class Todo{
 
         // addの後に実装
         if (args[0].equals("del")) {
-            delListItem(args[1]);
+          delListItem(args[1]);
+
+          System.out.println("---- result ----");
+          showList();
         }
     }
 
     // todo一覧に追加する
     public static void addList (String todo) {
-        // とりあえずファイルに書き込むサンプル
-        // ここでtodoのjsonを書き込む
         try{
           File file = new File("todolist.txt");
           FileWriter filewriter = new FileWriter(file, true);
@@ -63,14 +55,12 @@ public class Todo{
         String str;
         while((str = br.readLine()) != null){
           if (str.equals(itemName)) {
-            System.out.println(str + "is deleted");
+            System.out.println(str + " is deleted");
           }
           else {
             fileRead.append(str + "\r\n");
           }
         }
-        System.out.println("----result----");
-        System.out.println(fileRead.toString());
 
         br.close();
 
