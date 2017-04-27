@@ -5,6 +5,7 @@ import (
   "fmt"
   "net/http"
   "github.com/m0a/easyjson"
+  "math/rand"
   chatwork "github.com/yoppi/go-chatwork"
 )
 
@@ -16,7 +17,7 @@ var user_id = os.Getenv("FEEDLY_USER_ID")
 func get() ([]map[string]string, error) {
 //  url := "http://cloud.feedly.com/v3/profile"
   var err error
-  url := "https://cloud.feedly.com/v3/streams/contents?streamId=user/" + user_id + "/tag/global.saved&count=1"
+  url := "https://cloud.feedly.com/v3/streams/contents?streamId=user/" + user_id + "/tag/global.saved&count=19"
   req, _ := http.NewRequest("GET", url, nil)
   req.Header.Set("Authorization", token)
 
@@ -40,7 +41,8 @@ func get() ([]map[string]string, error) {
     if title_err != nil {
       err = fmt.Errorf("Invalid responses")
     }
-    url, url_err := jsonData.K("items").K(k).K("visual", "url").AsString()
+//    url, url_err := jsonData.K("items").K(k).K("visual").K("url").AsString()
+    url, url_err := jsonData.K("items").K(k).K("visual").K("url").AsString()
     if url_err != nil {
       err = fmt.Errorf("Invalid responses")
     }
@@ -49,15 +51,27 @@ func get() ([]map[string]string, error) {
   }
 
   fmt.Println(data)
-//  //string value
-//  copyrights,err:=json.K("routes").K(0).K("copyrights").AsString()
-//  if err!=nil {
-//    panic("AsString err")
-//  }
-
-
 
   return data, err
+}
+
+func shuffle (list []map[string]string) []map[string]string {
+  for i := len(list); i > 1; i-- {
+    j := rand.Intn(i)          // 0～(i-1) の乱数発生
+    list[i - 1], list[j] = list[j], list[i - 1]
+  }
+  return list
+}
+
+func makeBody (data []map[string]string) string {
+  var body string
+  for _, item := range data {
+//    if k > 3 {
+//      break
+//    }
+    body += item["title"] + "\n" + item["url"] + "\n\n"
+  }
+  return body
 }
 
 func send(message string) error {
@@ -69,34 +83,16 @@ func send(message string) error {
   return nil
 }
 
-func run() error {
-  response, err := http.Get(api + "/questions")
-  if err != nil {
-    return fmt.Errorf("Failed to connect teratail.com")
-  }
-  defer response.Body.Close()
-
-  jsonData, err := easyjson.NewEasyJson(response.Body)
-  if err != nil {
-    return fmt.Errorf("Invalid responses")
-  }
-
-  for _, v:=range jsonData.K("questions").RangeObjects() {
-    fmt.Printf("%s\n", v.K("title"))
-  }
-
-  return nil
-}
-
 func main() {
   data, err := get()
   if err != nil {
     fmt.Fprintf(os.Stderr, "%s\n", err)
     os.Exit(1)
   }
-  fmt.Println(data)
-//  if err := send("hogehoge"); err != nil {
-//    fmt.Fprintf(os.Stderr, "%s\n", err)
-//    os.Exit(1)
-//  }
+  shuf_data := shuffle(data)
+  body := makeBody(shuf_data)
+  if err := send(body); err != nil {
+    fmt.Fprintf(os.Stderr, "%s\n", err)
+    os.Exit(1)
+  }
 }
