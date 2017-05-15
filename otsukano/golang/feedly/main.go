@@ -15,9 +15,9 @@ var token = os.Getenv("FEEDLY_TOKEN")
 var user_id = os.Getenv("FEEDLY_USER_ID")
 
 func get() ([]map[string]string, error) {
-//  url := "http://cloud.feedly.com/v3/profile"
   var err error
-  url := "https://cloud.feedly.com/v3/streams/contents?streamId=user/" + user_id + "/tag/global.saved&count=19"
+//  url := "https://cloud.feedly.com/v3/streams/contents?streamId=user/" + user_id + "/tag/global.saved&count=9"
+  url := "https://cloud.feedly.com/v3/streams/contents?streamId=user/" + user_id + "/tag/Read%20For%20Lator&count=10"
   req, _ := http.NewRequest("GET", url, nil)
   req.Header.Set("Authorization", token)
 
@@ -41,16 +41,14 @@ func get() ([]map[string]string, error) {
     if title_err != nil {
       err = fmt.Errorf("Invalid responses")
     }
-//    url, url_err := jsonData.K("items").K(k).K("visual").K("url").AsString()
-    url, url_err := jsonData.K("items").K(k).K("visual").K("url").AsString()
+    url, url_err := jsonData.K("items").K(k).K("alternate").RangeObjects()[0].K("href").AsString()
+fmt.Println(url)
     if url_err != nil {
       err = fmt.Errorf("Invalid responses")
     }
     item := map[string]string{"title": title, "url": url}
     data = append(data, item)
   }
-
-  fmt.Println(data)
 
   return data, err
 }
@@ -65,10 +63,10 @@ func shuffle (list []map[string]string) []map[string]string {
 
 func makeBody (data []map[string]string) string {
   var body string
-  for _, item := range data {
-//    if k > 3 {
-//      break
-//    }
+  for k, item := range data {
+    if k > 3 {
+      break
+    }
     body += item["title"] + "\n" + item["url"] + "\n\n"
   }
   return body
@@ -77,7 +75,7 @@ func makeBody (data []map[string]string) string {
 func send(message string) error {
   token := os.Getenv("CHATWORK_TOKEN")
   chatwork := chatwork.NewClient(token)
-  endpoint := "/rooms/361427/messages"
+  endpoint := "/rooms/74123818/messages"
   params :=  map[string]string{"body": message}
   chatwork.Post(endpoint, params)
   return nil
