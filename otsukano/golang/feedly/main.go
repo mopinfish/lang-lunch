@@ -17,7 +17,7 @@ var user_id = os.Getenv("FEEDLY_USER_ID")
 func get() ([]map[string]string, error) {
   var err error
 //  url := "https://cloud.feedly.com/v3/streams/contents?streamId=user/" + user_id + "/tag/global.saved&count=9"
-  url := "https://cloud.feedly.com/v3/streams/contents?streamId=user/" + user_id + "/tag/Read%20For%20Lator&count=10"
+  url := "https://cloud.feedly.com/v3/streams/contents?streamId=user/" + user_id + "/tag/Read%20For%20Lator&count=90"
   req, _ := http.NewRequest("GET", url, nil)
   req.Header.Set("Authorization", token)
 
