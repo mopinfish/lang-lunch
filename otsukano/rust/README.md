@@ -14,3 +14,13 @@ rustup self uninstall
 ```
 cargo new hello_world --bin
 ```
+
+## build application
+```
+cargo build
+```
+
+## run application
+```
+cargo run
+```
