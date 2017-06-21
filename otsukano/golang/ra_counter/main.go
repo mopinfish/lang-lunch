@@ -11,7 +11,7 @@ import (
 
 func get() (string, error) {
   var err error
-  url := "http://realestate-api.toushi.nxin.jp/realestate_article/facet/?facet=pref_id"
+  url := os.Getenv("RA_API_URL")
   req, _ := http.NewRequest("GET", url, nil)
 
   // setup ra api client
