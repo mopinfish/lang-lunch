@@ -1,0 +1,6 @@
+[package]
+name = "rust_nlp_100"
+version = "0.1.0"
+authors = ["otsukano <OtsukaNoboru@LIFULL.com>"]
+
+[dependencies]
