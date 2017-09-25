@@ -8,6 +8,7 @@ fn print_rev_text(text: &str) {
     println!("{:?}", text.chars().rev());
     println!("{:?}", text.chars().rev().collect::<String>());
     let rev_text = text.chars().rev().collect::<String>();
+    println!("{}", &rev_text);
 }
 
 fn main() {
