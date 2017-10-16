@@ -4,9 +4,10 @@ use std::env;
 
 fn print_altenately_concat_text(text1: &str, text2: &str) {
 	let mut concat_text = String::new();
-println!("{:?}", text1.chars().zip(text2.chars()));
-	for (idx1, t1) in text1.chars().enumerate() {
-	}
+    for (str1, str2) in text1.chars().zip(text2.chars()) {
+        concat_text.push(str1);
+        concat_text.push(str2);
+    }
     println!("{}", concat_text);
 }
 
