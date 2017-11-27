@@ -1,0 +1,7 @@
+# java
+*.class
+todolist.txt
+# haskell
+/haskell/wai-sample/.stack-work/dist/*
+/haskell/wai-sample/.stack-work/logs/
+/haskell/wai-sample/.stack-work/install/
