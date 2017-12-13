@@ -5,3 +5,5 @@ todolist.txt
 /haskell/wai-sample/.stack-work/dist/*
 /haskell/wai-sample/.stack-work/logs/
 /haskell/wai-sample/.stack-work/install/
+#kotlin
+*.jar
