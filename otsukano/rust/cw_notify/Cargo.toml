@@ -1,0 +1,12 @@
+[package]
+name = "cw_notify"
+version = "0.1.0"
+authors = ["otsukano <OtsukaNoboru@LIFULL.com>"]
+
+[dependencies]
+hyper = "0.11.6"
+reqwest = "0.8.1"
+serde = "1.0.15"
+serde_derive = "1.0.15"
+serde_json = "1.0.3"
+url = "1.5.1"
